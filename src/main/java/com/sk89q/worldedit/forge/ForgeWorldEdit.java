@@ -22,6 +22,7 @@ import static net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import java.io.File;
 import java.util.Map;
 
+import com.sk89q.worldedit.forge.compat.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -42,11 +43,6 @@ import com.sk89q.worldedit.blocks.BaseBlock;
 import com.sk89q.worldedit.blocks.BaseItemStack;
 import com.sk89q.worldedit.event.platform.PlatformReadyEvent;
 import com.sk89q.worldedit.extension.platform.Platform;
-import com.sk89q.worldedit.forge.compat.ArchitectureCraftBlockTransformHook;
-import com.sk89q.worldedit.forge.compat.CarpentersBlocksBlockTransformHook;
-import com.sk89q.worldedit.forge.compat.ForgeMultipartCompat;
-import com.sk89q.worldedit.forge.compat.ForgeMultipartExistsCompat;
-import com.sk89q.worldedit.forge.compat.NoForgeMultipartCompat;
 import com.sk89q.worldedit.internal.LocalWorldAdapter;
 
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -112,6 +108,8 @@ public class ForgeWorldEdit {
         if (Loader.isModLoaded("ArchitectureCraft")) {
             ForgeWorldData.getInstance()
                 .addBlockTransformHook(new ArchitectureCraftBlockTransformHook());
+            ForgeWorldData.getInstance()
+                .addMaterialTransformHook(new ArchitectureCraftBlockMaterialTransformHook());
         }
         if (Loader.isModLoaded("CarpentersBlocks")) {
             ForgeWorldData.getInstance()
