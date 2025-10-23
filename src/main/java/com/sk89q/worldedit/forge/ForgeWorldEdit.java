@@ -104,6 +104,8 @@ public class ForgeWorldEdit {
             compat = new ForgeMultipartExistsCompat();
             ForgeWorldData.getInstance()
                 .addBlockTransformHook((ForgeMultipartExistsCompat) compat);
+            ForgeWorldData.getInstance()
+                .addMaterialTransformHook(new ForgeMultipartBlockMaterialTransformHook());
         }
         if (Loader.isModLoaded("ArchitectureCraft")) {
             ForgeWorldData.getInstance()
