@@ -88,7 +88,8 @@ public class ForgeWorldEdit {
     private ForgePlatform platform;
     private ForgeConfiguration config;
     private File workingDir;
-    private ForgeMultipartCompat compat = new NoForgeMultipartCompat();
+    private ForgeMultipartCompat fmpCompat = new NoForgeMultipartCompat();
+    private LittleTilesCompat ltCompat = new NoLittleTilesCompat();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -101,9 +102,9 @@ public class ForgeWorldEdit {
         config.load();
 
         if (Loader.isModLoaded("ForgeMultipart")) {
-            compat = new ForgeMultipartExistsCompat();
+            fmpCompat = new ForgeMultipartExistsCompat();
             ForgeWorldData.getInstance()
-                .addBlockTransformHook((ForgeMultipartExistsCompat) compat);
+                .addBlockTransformHook((ForgeMultipartExistsCompat) fmpCompat);
             ForgeWorldData.getInstance()
                 .addMaterialTransformHook(new ForgeMultipartBlockMaterialTransformHook());
         }
@@ -117,6 +118,12 @@ public class ForgeWorldEdit {
             ForgeWorldData.getInstance()
                 .addBlockTransformHook(new CarpentersBlocksBlockTransformHook());
         }
+        if (Loader.isModLoaded("littletiles")) {
+            ltCompat = new LittleTilesExistsCompat();
+            ForgeWorldData.getInstance()
+                .addMaterialTransformHook(new LittleTilesBlockMaterialTransformHook());
+        }
+
 
         FMLCommonHandler.instance()
             .bus()
@@ -319,7 +326,11 @@ public class ForgeWorldEdit {
     }
 
     public ForgeMultipartCompat getFMPCompat() {
-        return compat;
+        return fmpCompat;
+    }
+
+    public LittleTilesCompat getLtCompat() {
+        return ltCompat;
     }
 
     /**
