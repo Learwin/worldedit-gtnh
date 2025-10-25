@@ -9,6 +9,7 @@ public class LittleTilesExistsCompat implements LittleTilesCompat{
     @Override
     public void sendDescPacket(World world, TileEntity entity) {
         if (entity instanceof TileEntityLittleTiles littleTile) {
+            littleTile.needFullUpdate = true;
             world.markBlockForUpdate(littleTile.xCoord, littleTile.yCoord, littleTile.zCoord);
             littleTile.markDirty();
         }
